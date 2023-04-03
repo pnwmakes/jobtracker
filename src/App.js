@@ -29,6 +29,7 @@ const App = () => {
       company: 'Big Tech & Surf Inc.',
       location: 'San Francisco, CA',
       description: 'We are looking for a Frontend grunt intern.',
+      status: 'no-answer',
     },
     {
       id: 2,
@@ -36,6 +37,7 @@ const App = () => {
       company: 'Bagles & Loks Start Up Corp.',
       location: 'New York, NY',
       description: 'We are looking for a Backend DevOps, No experience.',
+      status: 'no-answer',
     },
     {
       id: 3,
@@ -43,6 +45,7 @@ const App = () => {
       company: 'Coffe and Grundge LLC.',
       location: 'Seattle, WA',
       description: 'We are looking for Fullstack type of person, No experience.',
+      status: 'no-answer',
     },
     {
       id: 4,
@@ -50,6 +53,7 @@ const App = () => {
       company: 'We Break Stuff Inc.',
       location: 'Palo Alto, CA',
       description: 'We are looking for someone to break things.',
+      status: 'no-answer',
     },
   ]);
 
@@ -60,6 +64,11 @@ const App = () => {
   const handleAddJob = (newJob) => {
     setJobs([newJob, ...jobs]);
   }
+  const handleStatusChange = (jobId, newStatus) => {
+    setJobs(
+      jobs.map((job) => (job.id === jobId ? { ...job, status: newStatus } : job))
+    );
+  };
 
   return (
     <div className="App">
@@ -68,8 +77,9 @@ const App = () => {
         <h1>Jobs Applied To</h1>
       </header>
       <Container className="job-list-container">
-        <JobList jobs={jobs} onDeleteJob={handleDeleteJob} />
+        <JobList jobs={jobs} onDeleteJob={handleDeleteJob} onStatusChange={handleStatusChange} />
       </Container>
+
     </div>
   );
 };
