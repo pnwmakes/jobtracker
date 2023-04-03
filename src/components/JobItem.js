@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { ListGroupItem, Button } from 'react-bootstrap';
 
 const JobItem = ({ job, onDeleteJob }) => {
     return (
-        <ListGroupItem>
+        <ListGroupItem className="job-item"> {/* Add the class here */}
             <h4>{job.title ? job.title : 'No title available'}</h4>
             <p>{job.company}</p>
             <p>{job.location}</p>

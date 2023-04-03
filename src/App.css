@@ -47,7 +47,12 @@
 .job-list-container {
   padding: 20px;
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 1200px;
+  text-align: left;
+}
+
+.job-item {
+  padding-left: 20px;
 }
 
 .ml-auto {

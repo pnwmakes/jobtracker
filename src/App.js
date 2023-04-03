@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import JobList from './components/JobList';
+import AddJobModal from './components/AddJobModal';
 import { Navbar, Container, Button } from 'react-bootstrap';
 import './App.css';
 
-const Navigation = ({ jobs }) => {
+const Navigation = ({ jobs, onAddJob }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
   return (
     <Navbar bg="primary" variant="dark">
       <Navbar.Brand className="mr-auto ml-3">My Job Tracker</Navbar.Brand>
       <Button className="calendar-btn mr-3" variant="outline-light">Calendar</Button>
+      <Button className="add-job-btn mr-3" variant="outline-light" onClick={handleShowModal}>Add Job</Button>
+      <AddJobModal show={showModal} onHide={handleCloseModal} onAddJob={onAddJob} />
     </Navbar>
   );
 };
+
 
 const App = () => {
   const [jobs, setJobs] = useState([
@@ -48,9 +57,13 @@ const App = () => {
     setJobs(jobs.filter(job => job.id !== jobId));
   }
 
+  const handleAddJob = (newJob) => {
+    setJobs([newJob, ...jobs]);
+  }
+
   return (
     <div className="App">
-      <Navigation />
+      <Navigation onAddJob={handleAddJob} />
       <header className="header">
         <h1>Jobs Applied To</h1>
       </header>
@@ -62,3 +75,6 @@ const App = () => {
 };
 
 export default App;
+
+
+
