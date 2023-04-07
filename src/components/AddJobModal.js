@@ -22,7 +22,7 @@ const AddJobModal = ({ show, onHide, onAddJob }) => {
                     validationSchema={jobSchema}
                     onSubmit={(values, { setSubmitting, resetForm }) => {
                         setSubmitting(true);
-                        onAddJob({ ...values, id: Date.now() });
+                        onAddJob({ ...values });
                         resetForm();
                         setSubmitting(false);
                         onHide();

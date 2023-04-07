@@ -3,6 +3,8 @@ import JobList from './components/JobList';
 import AddJobModal from './components/AddJobModal';
 import { Navbar, Container, Button } from 'react-bootstrap';
 import './App.css';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const Navigation = ({ jobs, onAddJob }) => {
   const [showModal, setShowModal] = useState(false);
@@ -30,6 +32,7 @@ const App = () => {
       location: 'San Francisco, CA',
       description: 'We are looking for a Frontend grunt intern.',
       status: 'no-answer',
+      notes: [],
     },
     {
       id: 2,
@@ -38,6 +41,7 @@ const App = () => {
       location: 'New York, NY',
       description: 'We are looking for a Backend DevOps, No experience.',
       status: 'no-answer',
+      notes: [],
     },
     {
       id: 3,
@@ -46,6 +50,7 @@ const App = () => {
       location: 'Seattle, WA',
       description: 'We are looking for Fullstack type of person, No experience.',
       status: 'no-answer',
+      notes: [],
     },
     {
       id: 4,
@@ -54,20 +59,43 @@ const App = () => {
       location: 'Palo Alto, CA',
       description: 'We are looking for someone to break things.',
       status: 'no-answer',
+      notes: [],
     },
   ]);
+
 
   const handleDeleteJob = (jobId) => {
     setJobs(jobs.filter(job => job.id !== jobId));
   }
 
-  const handleAddJob = (newJob) => {
+  const handleAddJob = (job) => {
+    const newJob = {
+      id: uuidv4(),
+      title: job.title,
+      company: job.company,
+      location: job.location,
+      description: job.description,
+      status: job.status,
+      notes: [],
+    };
+
     setJobs([newJob, ...jobs]);
-  }
+  };
+
   const handleStatusChange = (jobId, newStatus) => {
     setJobs(
       jobs.map((job) => (job.id === jobId ? { ...job, status: newStatus } : job))
     );
+  };
+
+  const handleAddNote = (jobId, newNote) => {
+    setJobs(
+      jobs.map((job) => (job.id === jobId ? { ...job, note: newNote } : job))
+    );
+  };
+
+  const handleUpdateJob = (updatedJob) => {
+    setJobs(jobs.map((job) => (job.id === updatedJob.id ? updatedJob : job)));
   };
 
   return (
@@ -77,14 +105,14 @@ const App = () => {
         <h1>Jobs Applied To</h1>
       </header>
       <Container className="job-list-container">
-        <JobList jobs={jobs} onDeleteJob={handleDeleteJob} onStatusChange={handleStatusChange} />
+        <JobList jobs={jobs} onDeleteJob={handleDeleteJob} onStatusChange={handleStatusChange} onUpdateJob={handleUpdateJob} />
       </Container>
-
     </div>
   );
 };
 
 export default App;
+
 
 
 

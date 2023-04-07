@@ -1,9 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ListGroupItem, Button, DropdownButton, Dropdown } from 'react-bootstrap';
+import NotesModal from './NotesModal';
+import { v4 as uuidv4 } from 'uuid';
 
-const JobItem = ({ job, onDeleteJob, onStatusChange }) => {
+const JobItem = ({ job, onDeleteJob, onStatusChange, onUpdateJob }) => {
+    const [showNotesModal, setShowNotesModal] = useState(false);
+
     const handleStatusChange = (newStatus) => {
         onStatusChange(job.id, newStatus);
+    };
+
+    const handleShowNotesModal = () => {
+        setShowNotesModal(true);
+    };
+
+    const handleCloseNotesModal = () => {
+        setShowNotesModal(false);
+    };
+
+    const handleAddNote = (noteText) => {
+        const newNote = {
+            id: uuidv4(),
+            text: noteText,
+        };
+
+        const updatedJob = {
+            ...job,
+            notes: [...job.notes, newNote],
+        };
+
+        onUpdateJob(updatedJob);
+    };
+
+    const handleDeleteNote = (noteId) => {
+        const updatedNotes = job.notes.filter((note) => note.id !== noteId);
+        const updatedJob = {
+            ...job,
+            notes: updatedNotes,
+        };
+
+        onUpdateJob(updatedJob);
     };
 
     return (
@@ -28,11 +64,28 @@ const JobItem = ({ job, onDeleteJob, onStatusChange }) => {
                     <Dropdown.Item eventKey="Follow up">Follow up</Dropdown.Item>
                     <Dropdown.Item eventKey="Follow up">Waiting</Dropdown.Item>
                 </DropdownButton>
-                <Button variant="danger" onClick={() => onDeleteJob(job.id)}>Delete</Button>
+                <Button
+                    className="notes-button mr-2"
+                    variant="info"
+                    onClick={handleShowNotesModal}
+                >
+                    Notes
+                </Button>
+                <Button variant="danger" onClick={() => onDeleteJob(job.id)}>
+                    Delete
+                </Button>
             </div>
+            <NotesModal
+                show={showNotesModal}
+                onHide={handleCloseNotesModal}
+                notes={job.notes}
+                onAddNote={handleAddNote}
+                onDeleteNote={handleDeleteNote}
+            />
         </ListGroupItem>
     );
 };
 
 export default JobItem;
+
 
