@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #34282f;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -55,10 +55,6 @@
   padding-left: 20px;
 }
 
-.ml-auto {
-  margin-left: auto !important;
-  margin-right: 20px !important;
-}
 
 .navbar {
   display: flex;
@@ -83,4 +79,8 @@
   width: 250px;
   align-items: center;
   margin-top: 10px;
+}
+
+.button-container {
+  padding-right: 20px;
 }

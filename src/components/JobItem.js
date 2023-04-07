@@ -26,7 +26,7 @@ const JobItem = ({ job, onDeleteJob, onStatusChange }) => {
                     <Dropdown.Item eventKey="Rejection">Rejection</Dropdown.Item>
                     <Dropdown.Item eventKey="Offer">Offer</Dropdown.Item>
                     <Dropdown.Item eventKey="Follow up">Follow up</Dropdown.Item>
-                    {/* Add more status options here */}
+                    <Dropdown.Item eventKey="Follow up">Waiting</Dropdown.Item>
                 </DropdownButton>
                 <Button variant="danger" onClick={() => onDeleteJob(job.id)}>Delete</Button>
             </div>

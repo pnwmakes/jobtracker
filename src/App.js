@@ -14,7 +14,7 @@ const Navigation = ({ jobs, onAddJob }) => {
     <Navbar bg="primary" variant="dark">
       <Navbar.Brand className="mr-auto ml-3">My Job Tracker</Navbar.Brand>
       <Button className="calendar-btn mr-3" variant="outline-light">Calendar</Button>
-      <Button className="add-job-btn mr-3" variant="outline-light" onClick={handleShowModal}>Add Job</Button>
+      <Button className="add-job-btn mr-3 ml-3" variant="outline-light" onClick={handleShowModal}>Add Job</Button>
       <AddJobModal show={showModal} onHide={handleCloseModal} onAddJob={onAddJob} />
     </Navbar>
   );
