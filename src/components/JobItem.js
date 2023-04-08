@@ -53,7 +53,7 @@ const JobItem = ({ job, onDeleteJob, onStatusChange, onUpdateJob }) => {
                 <DropdownButton
                     id={`status-dropdown-${job.id}`}
                     title="Update Status"
-                    variant="secondary"
+                    variant="success"
                     onSelect={handleStatusChange}
                     className="mr-2 update-status-button"
                 >

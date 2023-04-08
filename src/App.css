@@ -71,6 +71,9 @@
 .calendar-btn {
   margin-right: 20px;
   margin-left: auto;
+  background-color: rgb(212, 219, 112) !important;
+  color: black;
+  border-color: black;
 }
 
 .button-group {
@@ -96,4 +99,5 @@
 
 .add-job-btn {
   margin-right: 20px;
+  background-color: orange !important;
 }
