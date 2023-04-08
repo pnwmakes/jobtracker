@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form, Button, FormControl } from 'react-bootstrap';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -36,7 +36,7 @@ const NotesModal = ({ show, onHide, notes, onAddNote, onDeleteNote }) => {
                         <Form onSubmit={handleSubmit}>
                             <Form.Group>
                                 <Form.Label>Note</Form.Label>
-                                <Field as={Form.Control} as="textarea" rows={5} type="text" name="noteText" />
+                                <Field as={FormControl} rows={2} cols={30} type="text" name="noteText" />
                                 <ErrorMessage name="noteText" component="div" className="text-danger" />
                             </Form.Group>
                             <Button variant="primary" type="submit" disabled={isSubmitting}>
@@ -51,3 +51,4 @@ const NotesModal = ({ show, onHide, notes, onAddNote, onDeleteNote }) => {
 };
 
 export default NotesModal;
+
