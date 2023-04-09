@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import JobItem from './JobItem';
 import { ListGroup } from 'react-bootstrap';

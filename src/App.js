@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import JobList from './components/JobList';
 import AddJobModal from './components/AddJobModal';
-import { Navbar, Container, Button } from 'react-bootstrap';
+import { Navbar, Container, Button, FormControl } from 'react-bootstrap';
 import './App.css';
 import { v4 as uuidv4 } from 'uuid';
 
-
-const Navigation = ({ jobs, onAddJob }) => {
+const Navigation = ({ jobs, onAddJob, onSearchChange }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleShowModal = () => setShowModal(true);
@@ -16,12 +15,17 @@ const Navigation = ({ jobs, onAddJob }) => {
     <Navbar bg="primary" variant="dark">
       <Navbar.Brand className="mr-auto ml-3">My Job Tracker</Navbar.Brand>
       <Button className="calendar-btn mr-3" variant="outline-light">Calendar</Button>
+      <FormControl
+        type="text"
+        placeholder="Search"
+        className="mr-sm-2 search-input"
+        onChange={(e) => onSearchChange(e.target.value)}
+      />
       <Button className="add-job-btn mr-3 ml-3 border-dark text-dark" variant="outline-success" onClick={handleShowModal}>Add Job</Button>
       <AddJobModal show={showModal} onHide={handleCloseModal} onAddJob={onAddJob} />
     </Navbar>
   );
 };
-
 
 const App = () => {
   const [jobs, setJobs] = useState([
@@ -64,6 +68,8 @@ const App = () => {
   ]);
 
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   const handleDeleteJob = (jobId) => {
     setJobs(jobs.filter(job => job.id !== jobId));
   }
@@ -78,7 +84,6 @@ const App = () => {
       status: job.status,
       notes: [],
     };
-
     setJobs([newJob, ...jobs]);
   };
 
@@ -98,20 +103,34 @@ const App = () => {
     setJobs(jobs.map((job) => (job.id === updatedJob.id ? updatedJob : job)));
   };
 
+  const handleSearchChange = (searchValue) => {
+    setSearchTerm(searchValue);
+  };
+
+  const filteredJobs = jobs.filter((job) =>
+    job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="App">
-      <Navigation onAddJob={handleAddJob} />
+      <Navigation onAddJob={handleAddJob} onSearchChange={handleSearchChange} />
       <header className="header">
         <h1>Jobs Applied To</h1>
       </header>
       <Container className="job-list-container">
-        <JobList jobs={jobs} onDeleteJob={handleDeleteJob} onStatusChange={handleStatusChange} onUpdateJob={handleUpdateJob} />
+        <JobList jobs={filteredJobs} onDeleteJob={handleDeleteJob} onStatusChange={handleStatusChange} onUpdateJob={handleUpdateJob} />
       </Container>
     </div>
   );
 };
 
 export default App;
+
+
+
 
 
 

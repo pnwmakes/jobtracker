@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+.search-input {
+  width: 250px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -99,5 +103,6 @@
 
 .add-job-btn {
   margin-right: 20px;
+  margin-left: 18px;
   background-color: orange !important;
 }
