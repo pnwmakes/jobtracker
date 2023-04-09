@@ -107,12 +107,17 @@ const App = () => {
     setSearchTerm(searchValue);
   };
 
-  const filteredJobs = jobs.filter((job) =>
-    job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredJobs = jobs.filter((job) => {
+    const searchTermLower = searchTerm.toLowerCase();
+    return (
+      job.title.toLowerCase().includes(searchTermLower) ||
+      job.company.toLowerCase().includes(searchTermLower) ||
+      job.location.toLowerCase().includes(searchTermLower) ||
+      job.description.toLowerCase().includes(searchTermLower) ||
+      job.status.toLowerCase().includes(searchTermLower)
+    );
+  });
+
 
   return (
     <div className="App">
